@@ -24,7 +24,7 @@ protoc --go_out=. --go_opt=paths=source_relative \
     p4p/p4p/userpeer/p4p/userpeer.proto
     
     
-cp -r  p4p/p4p/user/p4p ~/go/src/google.golang.org/grpc/examples/p4p/p4p/user/ 
+cp -r  ~/grpc-go/examples/p4p  ~/go/src/google.golang.org/grpc/examples/
 
 # go run ~/grpc-go/examples/p4p/p4p/sim/server/server.go   
 ```  
