@@ -15,6 +15,15 @@ protoc --go_out=. --go_opt=paths=source_relative \
     --go-grpc_out=. --go-grpc_opt=paths=source_relative \
     p4p/p4p/user/p4p/users.proto
     
+protoc --go_out=. --go_opt=paths=source_relative \
+    --go-grpc_out=. --go-grpc_opt=paths=source_relative \
+    p4p/p4p/userserver/p4p/userserver.proto
+    
+protoc --go_out=. --go_opt=paths=source_relative \
+    --go-grpc_out=. --go-grpc_opt=paths=source_relative \
+    p4p/p4p/userpeer/p4p/userpeer.proto
+    
+    
 cp -r  p4p/p4p/user/p4p ~/go/src/google.golang.org/grpc/examples/p4p/p4p/user/ 
 
 # go run ~/grpc-go/examples/p4p/p4p/sim/server/server.go   
