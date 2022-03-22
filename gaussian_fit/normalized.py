@@ -116,6 +116,8 @@ with open('employee_file.csv', mode='w') as employee_file:
 	    counter+=1
 	    # employee_writer.writerow([counter, counter])
 	    employee_writer.writerow([counter, averagedTwo2DArray[i]])
+	    # sgvalue = math.fabs(gauss(0, 100))
+	    # employee_writer.writerow([counter, sgvalue])
 
 
 

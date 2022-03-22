@@ -3,13 +3,22 @@ from scipy.optimize import curve_fit
 import matplotlib.pyplot as mpl
 import matplotlib.pyplot as plt
 
+# data =np.loadtxt('employee_file.csv')
+data = np.genfromtxt('employee_file.csv', delimiter=",")
+def gauss(x,mu,sigma,A):
+    return A*np.exp(-(x-mu)**2/2/sigma**2)
+def trimodal_gauss(x,mu1,sigma1,A1,mu2,sigma2,A2,mu3,sigma3,A3):
+    return gauss(x,mu1,sigma1,A1)+gauss(x,mu2,sigma2,A2)+gauss(x,mu3,sigma3,A3)
+
+    
 # Let's create a function to model and create data
 def func(x, a, x0, sigma):
     return a*np.exp(-(x-x0)**2/(2*sigma**2))
   
 # Generating clean data
-x = np.linspace(0, 10, 100)
-y = func(x, 1, 5, 2)
+# x = np.linspace(0, 10, 100)
+x = data[:,0]
+y = func(x, 5, 500, 200)
   
 # Adding noise to the data
 yn = y + 0.2 * np.random.normal(size=len(x))
@@ -19,18 +28,23 @@ fig = mpl.figure()
 ax = fig.add_subplot(111)
 ax.plot(x, y, c='k', label='Function')
 ax.scatter(x, yn)
-  
+my_y = data[:,1]
+
+
+y
 # Executing curve_fit on noisy data
-popt, pcov = curve_fit(func, x, yn)
+# popt, pcov = curve_fit(func, x, yn)
+popt, pcov = curve_fit(func, data[:,0], my_y)
   
 #popt returns the best fit values for parameters of the given model (func)
 print (popt)
 
   
 ym = func(x, popt[0], popt[1], popt[2])
-ax.plot(x, ym, c='r', label='Best fit')
+ax.plot(x, ym, c='r', label='Best fitt')
+ax.scatter(x, my_y)
 ax.legend()
-fig.savefig('model_fit.png')
+fig.savefig('model_fit_m.png')
 
 
 

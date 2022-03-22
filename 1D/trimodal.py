@@ -6,7 +6,15 @@ data = np.genfromtxt('employee_file.csv', delimiter=",")
 my_x=data[:,0]
 my_y=data[:,1]
 
+guess3 = [300, 0.55, 1000, 0.6, 5000, 0.01, 1000, 300, 0.01, 100]  # I guess there are 3 peaks, 2 are clear, but between them there seems to be another one, based on the change in slope smoothness there
+guess2 = [300, 0.55, 0.01, 1, 500, 0.91, 1000]  # I removed the peak I'm not too sure about
+guess1 = [1000, 500, 300, 0]
 
+optim3, success = optimize.leastsq(errfunc3, guess3[:], args=(data[:,0], data[:,1]))
+# , data[:,1])
+optim2, success = optimize.leastsq(errfunc2, guess2[:], args=(data[:,0], data[:,1]))
+
+optim1, success = optimize.leastsq(errfunc1, guess1[:], args=(data[:,0], data[:,1]))
 
 # Let's create a function to model and create data
 def func(x, a, x0, sigma):
@@ -34,10 +42,11 @@ height=[1,1,1]
 
 p=[]    
 p = np.array([list(t) for t in zip(centroid, sigma, height)]).flatten()
-popt, pcov = curve_fit(trimodal_gauss,my_x,my_y,p0=p) 
+# popt, pcov = curve_fit(trimodal_gauss,my_x,my_y,p0=p) 
 # p0=[1,mean,sigma]
 
 # Executing curve_fit on noisy data
+popt, pcov = curve_fit(trimodal_gauss,my_x,my_y) 
 # popt, pcov = curve_fit(func, x, yn)
 
 print("popt:")
@@ -45,7 +54,8 @@ print(popt)
 print("pcov:")
 print(pcov)
 
-x = np.linspace(0, 1000, 1000)
+# x = np.linspace(0, 1000, 1000)
+x = my_x
 fig = mpl.figure()
 ax = fig.add_subplot(111)
 ax = fig.add_subplot(111)
@@ -61,5 +71,6 @@ ym = func(x, popt[0], popt[1], popt[2])
 
 # print(ym)
 ax.plot(x, ym, c='r', label='Best fit')
+ax.scatter(x, my_y)
 ax.legend()
 fig.savefig('trimodal.png')
