@@ -16,7 +16,7 @@ original = []
 with open('freemanson.csv', mode='w') as employee_file:
     employee_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     counter=0
-    for _ in range(100):
+    for _ in range(10000):
 	    counter+=1
 	    sgvalue = gauss(5, 2)
 	    if(counter < 100):
